@@ -9,6 +9,7 @@ import {
     StyleSheet,
     View,
     Text,
+    Platform,
     NativeSyntheticEvent,
     TextInputKeyPressEventData,
     TouchableOpacity
@@ -68,6 +69,14 @@ export class XFVerificationCodeInput extends React.Component<Props, State> {
             inputIndex: 0,
             inputArray: ['', '', '', '', '', ''],
         }
+    }
+    
+    componentDidMount(): void {
+        Platform.OS === 'android' && setTimeout(() => {
+            if (this.refArray && this.refArray[this.state.inputIndex] && this.refArray[this.state.inputIndex].current) {
+                this.refArray[this.state.inputIndex].current.focus();
+            }
+        }, 300);
     }
 
     render(): React.ReactNode {
